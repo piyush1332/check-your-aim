@@ -1,0 +1,39 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Check Your Aim Game</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+	<h1 class="game_heading">Check Your Aim</h1>
+	<div class="button_holder">
+		<button id ="start_game" class="start_game" onclick="startGame();">Start Game</button>
+		<button id ="end_game" class="end_game" onclick="endGame();">End Game</button>
+		<p class="popup" id = "popup"></p>
+		<h1 class="score_count" id="score_count">0</h1>
+		<h1 class="score">Score</h1>
+	</div>
+	<div class="game_area" id ="game_area" onclick="fireBullet();">
+		<div class="arrow_gun" id ="arrow_gun">
+			<div class="bullet">
+				
+			</div>
+		</div>
+		<div class="target">
+			<div class="blue"></div>
+			<div class="red"></div>
+			<div class="green"></div>
+		</div>
+	</div>
+	<!-- fire bullet -->
+	
+	<center>
+		<button class="fire_bullet" id="fire_bullet" onclick="fireBullet();">Fire Bullet</button>
+	</center>
+
+	<div class="footer">
+		Check your aim made by Piyush Mishra  <span style="color: blue;"> <i> Reak Infotech LLP</i></span>
+	</div>
+</body>
+</html>
