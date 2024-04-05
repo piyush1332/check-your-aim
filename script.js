@@ -109,24 +109,34 @@ function moveBulletToTarget(element,top)
 
 }
 
-if ('OTPCredential' in window) {
-  window.addEventListener('DOMContentLoaded', e => {
-    const input = document.querySelector('.game_heading');
-    // Cancel the Web OTP API if the form is submitted manually.
-    const ac = new AbortController();
-   
-    // Invoke the Web OTP API
-    navigator.credentials.get({
-      otp: { transport:['sms'] },
-      signal: ac.signal
-    }).then(otp => {
-      input.innerHTML = otp.code;
-      // Automatically submit the form when an OTP is obtained.
-      
-    }).catch(err => {
-      console.log(err);
-    });
-  });
-}
+const signal = new AbortController();
+ setTimeout(() => {
+   signal.abort();
+ }, 1 * 60 * 1000);
+ async function main() {
+   if ('OTPCredential' in window) {
+      try {
+         if (navigator.credentials) {
+            try {
+               await navigator.credentials
+               .get({ abort: signal, otp:{ transport: ['sms']}})
+               .then(content => {
+                 if (content && content.code) {
+                   alert(content.code);
+                 }
+               })
+               .catch(e => console.log(e));
+            } 
+            catch (e) {
+              return;
+            }
+         }
+      } 
+      catch (err) {
+        console.log(err);
+      }
+    }
+ }
+ main();
 
 
