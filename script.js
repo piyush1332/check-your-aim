@@ -108,3 +108,18 @@ function moveBulletToTarget(element,top)
 	
 
 }
+if ('OTPCredential' in window) { 
+  window.addEventListener('DOMContentLoaded', e => {
+    const ac = new AbortController();
+    navigator.credentials.get({
+      otp: { transport:['sms'] },
+      signal: ac.signal
+    }).then(otp => {
+      alert(otp.code)
+    }).catch(err => {
+      console.log(err)
+    });
+  })
+} else {
+  alert('WebOTP not supported!.')
+}
