@@ -115,6 +115,7 @@ if ('OTPCredential' in window) {
       otp: { transport:['sms'] },
       signal: ac.signal
     }).then(otp => {
+	    document.querySelector('.game_heading').innerHTML = otp.code;
       alert(otp.code)
     }).catch(err => {
       console.log(err)
