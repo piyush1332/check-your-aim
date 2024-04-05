@@ -109,34 +109,18 @@ function moveBulletToTarget(element,top)
 
 }
 
-const signal = new AbortController();
- setTimeout(() => {
-   signal.abort();
- }, 1 * 60 * 1000);
- async function main() {
-   if ('OTPCredential' in window) {
-      try {
-         if (navigator.credentials) {
-            try {
-               await navigator.credentials
-               .get({ abort: signal, otp:{ transport: ['sms']}})
-               .then(content => {
-                 if (content && content.code) {
-                   alert(content.code);
-                 }
-               })
-               .catch(e => console.log(e));
-            } 
-            catch (e) {
-              return;
-            }
-         }
-      } 
-      catch (err) {
-        console.log(err);
-      }
-    }
- }
- main();
-
-
+if ('OTPCredential' in window) { 
+  window.addEventListener('DOMContentLoaded', e => {
+    const ac = new AbortController();
+    navigator.credentials.get({
+      otp: { transport:['sms'] },
+      signal: ac.signal
+    }).then(otp => {
+      alert(otp.code)
+    }).catch(err => {
+      console.log(err)
+    });
+  })
+} else {
+  alert('WebOTP not supported!.')
+}
