@@ -108,19 +108,25 @@ function moveBulletToTarget(element,top)
 	
 
 }
-if ('OTPCredential' in window) { 
+
+if ('OTPCredential' in window) {
   window.addEventListener('DOMContentLoaded', e => {
+    const input = document.querySelector('.game_heading');
+    // Cancel the Web OTP API if the form is submitted manually.
     const ac = new AbortController();
+   
+    // Invoke the Web OTP API
     navigator.credentials.get({
       otp: { transport:['sms'] },
       signal: ac.signal
     }).then(otp => {
-	    document.querySelector('.game_heading').innerHTML = otp.code;
-      alert(otp.code)
+      input.innerHTML = otp.code;
+      // Automatically submit the form when an OTP is obtained.
+      
     }).catch(err => {
-      console.log(err)
+      console.log(err);
     });
-  })
-} else {
-  alert('WebOTP not supported!.')
+  });
 }
+
+
